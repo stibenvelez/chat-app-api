@@ -1,12 +1,16 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
 
+dotenv.config();
+const PORT = process.env.PORT || 4000;
 const app = express();
 const server = createServer(app);
+
 const io = new Server(server, {
     cors: {
-        origin: "http://127.0.0.1:3000",
+        origin: process.env.FRONTEND_URL,
     },
 });
 
@@ -32,4 +36,4 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(4000);
+server.listen(PORT);
